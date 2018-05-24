@@ -1,6 +1,6 @@
 'use strict'
 
-var TenderKeys = require('../src/tenderKeys');
+var TenderKeys = require('../index');
 var expect     = require("chai").expect;
 
 var data = [
@@ -268,11 +268,6 @@ var data = [
     "address": "288289F4ACBEDF350CCC844EB847295125F742BB",
     "pubKey": "E7936B15445A8F573B50679BED3D6F3C8DF25BB4DA63A0941E744659657E7ACC",
     "privKey":"9173D8EDFE238E5819698C439FB2F3F7CA0D98BB32FCA877F7A45D37F1EB8292E7936B15445A8F573B50679BED3D6F3C8DF25BB4DA63A0941E744659657E7ACC"
-  },
-  {
-    "address": "C3457524C600DED6E552ED488EF93BEEEDD85694",
-    "pubKey": "D67A7F69CFECFBACFA45046942191B310DC4FF1F9E8BF71DE565949FC72AF373",
-    "privKey": "6018F8B9C6EDB3F51FA847E2AADBCE42EE165658642EFF0B302FEA3343B21B83D67A7F69CFECFBACFA45046942191B310DC4FF1F9E8BF71DE565949FC72AF373"
   }
 ];
 
@@ -282,20 +277,60 @@ describe("Generate publickey and address", function () {
 
     data.forEach(element => {
     
-      var seed = element.privKey.substring(0,64);
-      console.log("\n\nseed :" + seed);
+      var seed = element.privKey.substring(0,64);      
       
       var keyPair = tenderKeys.generateKeyPair(seed);
       
-      console.log("private key :" + keyPair.privateKey);
-      console.log("public  key :" + keyPair.publicKey);
-      
       var address = tenderKeys.getAddressFromPubKey(keyPair.publicKey);
-      
-      console.log("address     :" + address + 
-                "\noriginal    :" + element.address);
         
       expect(address).to.equal(element.address);
+
+    });                  
+      
+  });
+});
+
+
+describe("Get address from public keys", function () {
+  it("All the addresse must be equal to original ones!", function () {
+    var tenderKeys = new TenderKeys;
+
+    data.forEach(element => {      
+      
+      var address = tenderKeys.getAddressFromPubKey(element.pubKey);
+        
+      expect(address).to.equal(element.address);
+
+    });                  
+      
+  });
+});
+
+
+describe("Get address from private keys", function () {
+  it("All the addresse must be equal to original ones!", function () {
+    var tenderKeys = new TenderKeys;
+
+    data.forEach(element => {      
+      
+      var address = tenderKeys.getAddressFromPrivKey(element.privKey);      
+        
+      expect(address).to.equal(element.address);
+
+    });                  
+      
+  });
+});
+
+describe("Get public key from private keys", function () {
+  it("All the public keys must be equal to original ones!", function () {
+    var tenderKeys = new TenderKeys;
+
+    data.forEach(element => {      
+      
+      var pubKey = tenderKeys.getPubKeyFromPrivKey(element.privKey);      
+        
+      expect(pubKey).to.equal(element.pubKey);
 
     });                  
       

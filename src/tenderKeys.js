@@ -53,14 +53,14 @@ module.exports = class TenderKeys {
 
       getAddressFromPrivKey(privateKey){
         this._isHexString(privateKey,PRIVKEY_NAME,PRIVKEY_LENGTH);
-        let publicKey = privateKey.substring(32,64);
+        let publicKey = privateKey.substring(64,128);
         return this.getAddressFromPubKey(publicKey);
 
       }
       
       getPubKeyFromPrivKey(privateKey){
         this._isHexString(privateKey,PRIVKEY_NAME,PRIVKEY_LENGTH);
-        return this.privateKey.substring(32,64);
+        return privateKey.substring(64,128);
 
       }
 
@@ -88,13 +88,13 @@ module.exports = class TenderKeys {
         }
         
         if (hexString.length != length) {
-            throw new Error( '\nError : The length of' + name + ' must be' + length );
+            throw new Error( '\nError : The length of' + name + ' must be ' + length );
         }
 
         let arr = hexString.split();
         for (let i = 0; i < arr.length; i++) 
             if (!arr[i].match(/[0-9A-Fa-f]/))
-                throw new Error("Error : unexpected junk in " + name);            
+                throw new Error("Error : unexpected junk in  " + name);            
         
       }
 
