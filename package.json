@@ -1,0 +1,17 @@
+{
+  "name": "bond",
+  "version": "1.0.0",
+  "description": "testing finterra bond and unbond API",
+  "main": "index.js",
+  "scripts": {
+      "test": "mocha"    
+  },
+  "dependencies": {
+    "bip39": "2.5.0",
+    "chai": "^4.1.2",
+    "ed25519": "0.0.4",    
+    "ripemd160": "2.0.2"
+  },
+  "author": "Ahmad Pouladzadeh",
+  "license": "MIT"
+}
