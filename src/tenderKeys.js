@@ -22,6 +22,7 @@ const ADDRESS_NAME      = 'Address';
 module.exports = class TenderKeys {
       
       generateKeyPair(seed){
+        this._isHexString(seed,SEED_NAME,SEED_LENGTH);
         let buffer = new Buffer(seed, "hex")
         let keyPair = ed25519.MakeKeypair(buffer);
         return {publicKey:keyPair.publicKey.toString('hex').toUpperCase(),
@@ -92,7 +93,7 @@ module.exports = class TenderKeys {
 
         let arr = hexString.split();
         for (let i = 0; i < arr.length; i++) 
-            if (!arr[i].match(/^[0-9A-Fa-f]/))
+            if (!arr[i].match(/[0-9A-Fa-f]/))
                 throw new Error("Error : unexpected junk in " + name);            
         
       }

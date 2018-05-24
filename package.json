@@ -1,17 +1,28 @@
 {
-  "name": "bond",
-  "version": "1.0.0",
-  "description": "testing finterra bond and unbond API",
+  "name": "tenderKeys",
+  "version": "0.0.1",
+  "description": "A module for creating bip39 mnemonic, ed25519 key pair and ripemd160 address for Tendermint and Hyperledger Burrow",
   "main": "index.js",
   "scripts": {
       "test": "mocha"    
   },
   "dependencies": {
-    "bip39": "2.5.0",
-    "chai": "^4.1.2",
+    "bip39": "2.5.0",    
     "ed25519": "0.0.4",    
-    "ripemd160": "2.0.2"
+    "ripemd160": "2.0.2"    
   },
+  "keywords": [
+    "Ed25519",
+    "elliptic",
+    "tendermint",
+    "burrow",
+    "hyperledger",
+    "finterra"
+],
   "author": "Ahmad Pouladzadeh",
-  "license": "MIT"
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/finterra/tenderkeys.js.git"
+}
 }
