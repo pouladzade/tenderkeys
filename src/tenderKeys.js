@@ -81,6 +81,14 @@ module.exports = class TenderKeys {
 
       }
 
+      sign(privKeyStr, txStr){
+        let buffer  = new Buffer(txStr);
+        let privKey = new Buffer(privKeyStr,"hex");
+        let signature = ed25519.Sign(buffer,privKey);        
+
+        return signature.toString("hex");
+      }
+      
       _isHexString(hexString,name,length){
 
         if (typeof hexString != 'string') {
