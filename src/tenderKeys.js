@@ -43,21 +43,32 @@ module.exports = class TenderKeys {
         
       }
       
-      getAddressFromPubKey(publicKey){
+      getTendermintAddress(publicKey){
         this._isHexString(publicKey,PUBKEY_NAME,PUBKEY_LENGTH);
         let ripmd160 = new RIPEMD160();
-        let encodedPubKey = this._hexStringToBytes(TYPE_ED25519 + PUBKEY_PREFIX + publicKey);
-        var buffer = new Buffer(encodedPubKey);
+        let buffer = this._hexStringToBytes(TYPE_ED25519 + PUBKEY_PREFIX + publicKey);  
         return ripmd160.update(buffer).digest('hex').toUpperCase();
       }
 
-      getAddressFromPrivKey(privateKey){
+      getBurrowAddress(publicKey){        
+        let hash = crypto.createHash('sha256');
+        let buffer = this._hexStringToBytes(publicKey)        
+        hash.update(buffer);
+        return hash.digest('hex').toUpperCase().substring(0,40);
+      }
+
+      getTendermintAddressFromPrivKey(privateKey){
         this._isHexString(privateKey,PRIVKEY_NAME,PRIVKEY_LENGTH);
         let publicKey = privateKey.substring(64,128);
-        return this.getAddressFromPubKey(publicKey);
+        return this.getTendermintAddress(publicKey);
 
       }
-      
+      getBurrowAddressFromPrivKey(privateKey){
+        this._isHexString(privateKey,PRIVKEY_NAME,PRIVKEY_LENGTH);
+        let publicKey = privateKey.substring(64,128);
+        return this.getBurrowAddress(publicKey);
+
+      }
       getPubKeyFromPrivKey(privateKey){
         this._isHexString(privateKey,PRIVKEY_NAME,PRIVKEY_LENGTH);
         return privateKey.substring(64,128);
@@ -114,7 +125,7 @@ module.exports = class TenderKeys {
             hexStr = hexStr.substring(2, hexStr.length);
         }
       
-        return result;
+        return Buffer.from(result);
       }         
 
 }

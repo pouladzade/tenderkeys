@@ -6,12 +6,14 @@ var tenderKeys = new TenderKeys;
 var mnemonic = tenderKeys.generateRandomMnemonic();
 var seed     =  tenderKeys.generateSeed(mnemonic);
 var keyPair  = tenderKeys.generateKeyPair(seed);
-var address  = tenderKeys.getAddressFromPubKey(keyPair.publicKey);
+var tAddress  = tenderKeys.getTendermintAddress(keyPair.publicKey);
+var bAddress  = tenderKeys.getBurrowAddress(keyPair.publicKey);
 
 console.log("mnemonic    :" + mnemonic);
 console.log("private key :" + keyPair.privateKey);
 console.log("Public key  :" + keyPair.publicKey);
-console.log("address     :" + address);
+console.log("Tendermint address     :" + tAddress);
+console.log("Burrow address     :" + bAddress);
 
 
 let data = '{"chain_id":"BurrowChain_2A0FC2-4F8BA9","tx":[1,{"inputs":[{"address":"6AE5EF855FE4F3771D1B6D6B73E21065ED7670EC","amount":1000,"sequence":8}],"outputs":[{"address":"D7572DA8389D0C3AA64FC8709CA853AFE24F4260","amount":1000}]}]}';
